@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { GlobalProvider } from "../context/GlobalContext";
 
 export const metadata: Metadata = {
   title: "Bird Collision Map",
@@ -13,8 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/birdicon.png" />
+      </head>
       <body>
-        {children}
+        <GlobalProvider>
+          {children}
+        </GlobalProvider>
       </body>
     </html>
   );

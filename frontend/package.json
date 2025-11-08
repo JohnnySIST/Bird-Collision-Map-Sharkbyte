@@ -9,8 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^7.3.5",
     "leaflet": "^1.9.4",
     "next": "16.0.1",
+    "osmtogeojson": "3.0.0-beta.5",
     "react": "19.0.0-rc.1",
     "react-dom": "19.0.0-rc.1",
     "react-leaflet": "5.0.0-rc.2"
