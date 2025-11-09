@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   output: 'export',
+  basePath: '/Bird-Collision-Map-Sharkbyte',
+  assetPrefix: '/Bird-Collision-Map-Sharkbyte/',
 };
 
 export default nextConfig;
