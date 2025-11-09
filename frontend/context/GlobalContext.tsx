@@ -16,6 +16,10 @@ export interface GlobalContextType {
   setZoom: (zoom: number | null) => void;
   collisions: any[];
   setCollisions: (collisions: any[]) => void;
+  weatherRecords: any[];
+  setWeatherRecords: (weather: any[]) => void;
+  ebirdRecords: any[];
+  setEbirdRecords: (ebird: any[]) => void;
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -27,6 +31,8 @@ export function GlobalProvider({ children }: { children: ReactNode }) {
   const [zoom, setZoom] = useState<number | null>(null);
   const [mapCenter, setMapCenter] = useState<LatLng | null>(null);
   const [collisions, setCollisions] = useState<any[]>([]);
+  const [weatherRecords, setWeatherRecords] = useState<any[]>([]);
+  const [ebirdRecords, setEbirdRecords] = useState<any[]>([]);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && mapCenter) {
@@ -39,7 +45,24 @@ export function GlobalProvider({ children }: { children: ReactNode }) {
   }, [mapCenter]);
 
   return (
-  <GlobalContext.Provider value={{ startDate, endDate, setStartDate, setEndDate, bounds, setBounds, zoom, setZoom, mapCenter, setMapCenter, collisions, setCollisions }}>
+    <GlobalContext.Provider value={{
+      startDate,
+      endDate,
+      setStartDate,
+      setEndDate,
+      bounds,
+      setBounds,
+      zoom,
+      setZoom,
+      mapCenter,
+      setMapCenter,
+      collisions,
+      setCollisions,
+      weatherRecords,
+      setWeatherRecords,
+      ebirdRecords,
+      setEbirdRecords
+    }}>
       {children}
     </GlobalContext.Provider>
   );

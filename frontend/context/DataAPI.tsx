@@ -25,7 +25,7 @@ export async function fetchCollisionsInBounds(bounds: Bounds): Promise<Collision
   if (!apiUrl) throw new Error('Please set NEXT_PUBLIC_API_URL in .env.local');
   // Build SQL query
   const sql = `SELECT id, observed_on_string as time, latitude as lat, longitude as lon, scientific_name, common_name, image_url, url FROM observations WHERE latitude BETWEEN ${bounds.south} AND ${bounds.north} AND longitude BETWEEN ${bounds.west} AND ${bounds.east}`;
-  console.log('Fetching collisions with SQL:', sql);
+  // console.log('Fetching collisions with SQL:', sql);
   const res = await fetch(`${apiUrl}/query`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
