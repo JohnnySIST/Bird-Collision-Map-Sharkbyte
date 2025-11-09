@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Head from 'next/head';
 import "./globals.css";
 import { GlobalProvider } from "@/context/GlobalContext";
-import { withBasePath } from "@/context/Utils";
 
 export const metadata: Metadata = {
   title: "Bird Collision Map",

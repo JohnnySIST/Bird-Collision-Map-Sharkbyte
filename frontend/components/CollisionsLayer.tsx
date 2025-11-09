@@ -34,7 +34,7 @@ export default function CollisionsLayer() {
       [sw.lat - expandLat, sw.lng - expandLng],
       [ne.lat + expandLat, ne.lng + expandLng]
     );
-
+    
     fetchCollisionsInBoundsSupabase({
       north: expandedBounds.getNorth(),
       south: expandedBounds.getSouth(),

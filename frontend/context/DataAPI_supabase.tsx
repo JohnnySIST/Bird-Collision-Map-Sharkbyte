@@ -26,6 +26,44 @@ export interface Bounds {
   west: number;
 }
 
+export async function fetchAllEbird(): Promise<CollisionRecord[]> {
+  const { data, error } = await supabase
+    .from('ebird_observations')
+    .select('*')
+  if (error) throw error;
+  console.log('Fetched all ebird:', data);
+  return (data || [])
+    .map((item: any) => ({
+      id: item.id,
+      time: item.metadata.taxon.created_at,
+      lat: item.latitude,
+      lon: item.longitude,
+      scientific_name: item.species_name,
+      common_name: item.common_name,
+      image_url: item.metadata.taxon.default_photo.url,
+      url: item.url,
+    }));
+}
+
+export async function fetchAllHeight(): Promise<CollisionRecord[]> {
+  const { data, error } = await supabase
+    .from('collision_building_proximity')
+    .select('*')
+  if (error) throw error;
+  console.log('Fetched all heights:', data);
+  return (data || [])
+    .map((item: any) => ({
+      id: item.id,
+      time: item.metadata.taxon.created_at,
+      lat: item.latitude,
+      lon: item.longitude,
+      scientific_name: item.species_name,
+      common_name: item.common_name,
+      image_url: item.metadata.taxon.default_photo.url,
+      url: item.url,
+    }));
+}
+
 // Fetch all collisions
 export async function fetchAllCollisions(): Promise<CollisionRecord[]> {
   const { data, error } = await supabase
@@ -33,16 +71,17 @@ export async function fetchAllCollisions(): Promise<CollisionRecord[]> {
     .select('*');
   if (error) throw error;
   console.log('Fetched all collisions:', data);
-  return (data || []).map((item: any) => ({
-    id: item.id,
-    time: item.time,
-    lat: item.latitude,
-    lon: item.longitude,
-    scientific_name: item.scientific_name,
-    common_name: item.common_name,
-    image_url: item.image_url,
-    url: item.url,
-  }));
+  return (data || [])
+    .map((item: any) => ({
+      id: item.id,
+      time: item.metadata?.taxon?.created_at,
+      lat: item.latitude,
+      lon: item.longitude,
+      scientific_name: item.species_name,
+      common_name: item.common_name,
+      image_url: item.metadata?.taxon?.default_photo?.url,
+      url: item.url,
+    }));
 }
 
 // Example: fetch collisions within bounds
@@ -55,14 +94,16 @@ export async function fetchCollisionsInBoundsSupabase(bounds: Bounds): Promise<C
     .gte('longitude', bounds.west)
     .lte('longitude', bounds.east);
   if (error) throw error;
-  return (data || []).map((item: any) => ({
-    id: item.id,
-    time: item.time,
-    lat: item.latitude,
-    lon: item.longitude,
-    scientific_name: item.scientific_name,
-    common_name: item.common_name,
-    image_url: item.image_url,
-    url: item.url,
-  }));
+  return (data || [])
+    .map((item: any) => ({
+      id: item.id,
+      time: item.metadata?.taxon?.created_at,
+      lat: item.latitude,
+      lon: item.longitude,
+      scientific_name: item.species_name,
+      common_name: item.common_name,
+      image_url: item.metadata?.taxon?.default_photo?.url,
+      url: item.url,
+    }))
+    .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime());
 }
