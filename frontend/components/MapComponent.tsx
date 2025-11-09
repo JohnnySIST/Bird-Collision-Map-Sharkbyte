@@ -41,7 +41,7 @@ export default function MapComponent() {
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         <BuildingsLayer highlighted={highlighted} setHighlighted={setHighlighted} />
-        <WeatherLayer />
+        {/* <WeatherLayer /> */}
         <EbirdLayer />
         <BoundMonitor />
         <CollisionsLayer />

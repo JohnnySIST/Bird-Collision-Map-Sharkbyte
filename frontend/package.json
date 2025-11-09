@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.14.1",
     "@mui/material": "^7.3.5",
     "@supabase/supabase-js": "^2.80.0",
+    "d3": "^7.9.0",
     "leaflet": "^1.9.4",
     "next": "16.0.1",
     "osmtogeojson": "3.0.0-beta.5",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/d3": "^7.4.3",
     "@types/leaflet": "^1.9.21",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -5,7 +5,7 @@ import { fetchWeatherInBoundsSupabase } from "@/context/DataAPI_supabase";
 
 export default function WeatherLayer() {
   const [cachedBounds, setCachedBounds] = useState<L.LatLngBounds | null>(null);
-  const { bounds, zoom, weatherRecords, setWeatherRecords } = useGlobalContext();
+  const { bounds, zoom, setWeatherRecords } = useGlobalContext();
 
   useEffect(() => {
     if (!bounds || !zoom || zoom < 12) {
