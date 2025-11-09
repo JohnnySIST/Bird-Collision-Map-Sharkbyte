@@ -1,9 +1,9 @@
 "use client";
 
 import { MapContainer, TileLayer } from 'react-leaflet'
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { LatLngExpression, LatLng } from 'leaflet';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import 'leaflet/dist/leaflet.css';
 import BoundMonitor from './BoundMonitor';
 import BuildingsLayer from './BuildingsLayer';

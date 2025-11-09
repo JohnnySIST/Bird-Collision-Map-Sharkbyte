@@ -1,4 +1,3 @@
-import { Circle, LayerGroup } from 'react-leaflet';
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import { useGlobalContext } from '../context/GlobalContext';

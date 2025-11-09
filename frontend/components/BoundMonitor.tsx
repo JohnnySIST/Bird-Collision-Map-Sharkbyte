@@ -10,8 +10,8 @@ export default function BoundMonitor() {
       setBounds(map.getBounds());
       setZoom(map.getZoom());
       setMapCenter(map.getCenter());
-      console.log("zoom:", map.getZoom());
-      console.log("bounds:", map.getBounds());
+      // console.log("zoom:", map.getZoom());
+      // console.log("bounds:", map.getBounds());
     };
     updateContext();
     map.on('moveend', updateContext);

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import { useGlobalContext } from '../context/GlobalContext';
 // import { fetchCollisionsInBounds } from '../context/DataAPI';
-import { fetchAllCollisions, fetchCollisionsInBoundsSupabase } from "@/context/DataAPI_supabase";
+import { fetchCollisionsInBoundsSupabase } from "@/context/DataAPI_supabase";
 
 export default function CollisionsLayer() {
   const [cachedBounds, setCachedBounds] = useState<L.LatLngBounds | null>(null);
@@ -15,13 +15,11 @@ export default function CollisionsLayer() {
       setCachedBounds(null);
       return;
     }
-    console.log('Current bounds:', bounds);
+    // console.log('Current bounds:', bounds);
 
     if (cachedBounds && cachedBounds.contains(bounds)) {
       return;
     }
-
-    console.log('Fetching collisions for bounds:', bounds);
 
     // Expand bounds by 50%
     const sw = bounds.getSouthWest();

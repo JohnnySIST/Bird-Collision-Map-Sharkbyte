@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import osmtogeojson from 'osmtogeojson';
 import { useGlobalContext } from '../context/GlobalContext';
 import L from 'leaflet';
-import { fetchAllEbird, fetchAllWeather } from '@/context/DataAPI_supabase';
 
 export default function BuildingsLayer({ highlighted, setHighlighted }: { highlighted: number | null, setHighlighted: (id: number | null) => void }) {
   const [buildings, setBuildings] = useState<any>(null);
@@ -48,9 +47,6 @@ export default function BuildingsLayer({ highlighted, setHighlighted }: { highli
       >;
       out skel qt;
     `;
-
-    fetchAllWeather();
-    fetchAllEbird();
 
     fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`)
       .then(res => res.json())
