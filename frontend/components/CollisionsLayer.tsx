@@ -2,8 +2,8 @@ import { Circle, LayerGroup } from 'react-leaflet';
 import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import { useGlobalContext } from '../context/GlobalContext';
-import { fetchCollisionsInBounds } from '../context/DataAPI';
-import { fetchAllCollisions } from "@/context/DataAPI_supabase";
+// import { fetchCollisionsInBounds } from '../context/DataAPI';
+import { fetchCollisionsInBoundsSupabase } from "@/context/DataAPI_supabase";
 
 export default function CollisionsLayer() {
   const [cachedBounds, setCachedBounds] = useState<L.LatLngBounds | null>(null);
@@ -35,20 +35,28 @@ export default function CollisionsLayer() {
       [ne.lat + expandLat, ne.lng + expandLng]
     );
 
-    fetchAllCollisions().then(data => {
-      console.log('Fetched all collisions:', data);
-    });
-    
-    fetchCollisionsInBounds({
+    fetchCollisionsInBoundsSupabase({
       north: expandedBounds.getNorth(),
       south: expandedBounds.getSouth(),
       east: expandedBounds.getEast(),
       west: expandedBounds.getWest()
     }).then(data => {
-      console.log('Fetched collisions:', data);
+      console.log('Fetched collisions supabase:', data);
       setCollisions(data);
       setCachedBounds(expandedBounds);
     });
+    
+    // using local database for testing
+    // fetchCollisionsInBounds({
+    //   north: expandedBounds.getNorth(),
+    //   south: expandedBounds.getSouth(),
+    //   east: expandedBounds.getEast(),
+    //   west: expandedBounds.getWest()
+    // }).then(data => {
+    //   console.log('Fetched collisions:', data);
+      // setCollisions(data);
+      // setCachedBounds(expandedBounds);
+    // });
   }, [bounds, zoom]);
 
     return collisions && collisions.length > 0 ? (

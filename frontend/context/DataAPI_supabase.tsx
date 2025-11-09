@@ -19,6 +19,13 @@ export interface CollisionRecord {
   url: string;
 }
 
+export interface Bounds {
+  north: number;
+  south: number;
+  east: number;
+  west: number;
+}
+
 // Fetch all collisions
 export async function fetchAllCollisions(): Promise<CollisionRecord[]> {
   const { data, error } = await supabase
@@ -28,9 +35,9 @@ export async function fetchAllCollisions(): Promise<CollisionRecord[]> {
   console.log('Fetched all collisions:', data);
   return (data || []).map((item: any) => ({
     id: item.id,
-    time: item.time || item.observed_on_string || item.created_at,
-    lat: item.lat || item.latitude,
-    lon: item.lon || item.longitude,
+    time: item.time,
+    lat: item.latitude,
+    lon: item.longitude,
     scientific_name: item.scientific_name,
     common_name: item.common_name,
     image_url: item.image_url,
@@ -39,20 +46,20 @@ export async function fetchAllCollisions(): Promise<CollisionRecord[]> {
 }
 
 // Example: fetch collisions within bounds
-export async function fetchCollisionsInBounds(bounds: { north: number; south: number; east: number; west: number; }): Promise<CollisionRecord[]> {
+export async function fetchCollisionsInBoundsSupabase(bounds: Bounds): Promise<CollisionRecord[]> {
   const { data, error } = await supabase
     .from('collision_incidents')
     .select('*')
-    .gte('lat', bounds.south)
-    .lte('lat', bounds.north)
-    .gte('lon', bounds.west)
-    .lte('lon', bounds.east);
+    .gte('latitude', bounds.south)
+    .lte('latitude', bounds.north)
+    .gte('longitude', bounds.west)
+    .lte('longitude', bounds.east);
   if (error) throw error;
   return (data || []).map((item: any) => ({
     id: item.id,
-    time: item.time || item.observed_on_string || item.created_at,
-    lat: item.lat || item.latitude,
-    lon: item.lon || item.longitude,
+    time: item.time,
+    lat: item.latitude,
+    lon: item.longitude,
     scientific_name: item.scientific_name,
     common_name: item.common_name,
     image_url: item.image_url,
