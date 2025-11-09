@@ -9,6 +9,8 @@ import BoundMonitor from './BoundMonitor';
 import BuildingsLayer from './BuildingsLayer';
 import SearchCity from './SearchCity';
 import CollisionsLayer from './CollisionsLayer';
+import WeatherLayer from './WeatherLayer';
+import EbirdLayer from './EbirdLayer';
 import { useGlobalContext } from '../context/GlobalContext';
 
 export default function MapComponent() {
@@ -39,6 +41,8 @@ export default function MapComponent() {
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         <BuildingsLayer highlighted={highlighted} setHighlighted={setHighlighted} />
+        <WeatherLayer />
+        <EbirdLayer />
         <BoundMonitor />
         <CollisionsLayer />
       </MapContainer>

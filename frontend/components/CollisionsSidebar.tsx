@@ -63,20 +63,28 @@ export default function CollisionsSidebar() {
               {filteredCollisions.map((c) => (
                 <ListItem key={c.id} alignItems="flex-start" sx={{ borderBottom: '1px solid #eee' }}>
                   <ListItemAvatar sx={{ mb: 0, mt: 0 }}>
-                      {c.image_url ? (
+                    {c.image_url && c.wiki_url ? (
+                      <a href={c.wiki_url} target="_blank" rel="noopener">
                         <img
                           src={c.image_url}
                           alt={c.common_name || c.scientific_name || 'Unknown'}
                           style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: 2, marginRight: 8, background: '#eee', display: 'block' }}
                         />
-                      ) : null}
+                      </a>
+                    ) : c.image_url ? (
+                      <img
+                        src={c.image_url}
+                        alt={c.common_name || c.scientific_name || 'Unknown'}
+                        style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: 2, marginRight: 8, background: '#eee', display: 'block' }}
+                      />
+                    ) : null}
                   </ListItemAvatar>
                   <ListItemText
                     primary={c.common_name || c.scientific_name || 'Unknown'}
                     secondary={
                       <>
                         <Typography component="span" variant="body2" color="text.secondary">
-                            {formatCollisionTime(c.time)}
+                          {formatCollisionTime(c.time)}
                         </Typography>
                         {c.url && (
                           <>
@@ -99,11 +107,12 @@ export default function CollisionsSidebar() {
   );
 }
 
-  function formatCollisionTime(time: string) {
-    if (!time) return '';
-    const d = new Date(time);
-    if (isNaN(d.getTime())) return time;
-    // Format: MM/DD/YY HH:mm
-    const pad = (n: number) => n.toString().padStart(2, '0');
-    return `${pad(d.getMonth() + 1)}/${pad(d.getDate())}/${d.getFullYear().toString().slice(-2)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  }
+function formatCollisionTime(time: string) {
+  if (!time) return '';
+  const d = new Date(time);
+  if (isNaN(d.getTime())) return time;
+  // Format: MM/DD/YY HH:mm
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  return `${pad(d.getMonth() + 1)}/${pad(d.getDate())}/${d.getFullYear().toString().slice(-2)}`;
+  return `${pad(d.getMonth() + 1)}/${pad(d.getDate())}/${d.getFullYear().toString().slice(-2)} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}

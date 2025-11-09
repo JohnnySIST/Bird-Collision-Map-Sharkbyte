@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import osmtogeojson from 'osmtogeojson';
 import { useGlobalContext } from '../context/GlobalContext';
 import L from 'leaflet';
+import { fetchAllEbird, fetchAllWeather } from '@/context/DataAPI_supabase';
 
 export default function BuildingsLayer({ highlighted, setHighlighted }: { highlighted: number | null, setHighlighted: (id: number | null) => void }) {
   const [buildings, setBuildings] = useState<any>(null);
@@ -48,10 +49,12 @@ export default function BuildingsLayer({ highlighted, setHighlighted }: { highli
       out skel qt;
     `;
 
+    fetchAllWeather();
+    fetchAllEbird();
+
     fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`)
       .then(res => res.json())
       .then(osmData => {
-        console.log('OSM Data:', osmData);
         const geojson = osmtogeojson(osmData);
         setBuildings(geojson);
         setCachedBounds(expandedBounds);
@@ -76,9 +79,46 @@ export default function BuildingsLayer({ highlighted, setHighlighted }: { highli
         e.originalEvent?.stopPropagation();
         if (highlighted == feature.id) {
           setHighlighted(null);
+          layer.closePopup();
           return;
         }
         setHighlighted(feature.id);
+        // Extract OSM tags
+        const properties = feature?.properties || {};
+        const name = properties.name || "Unknown";
+        const city = properties["addr:city"] || "";
+        const state = properties["addr:state"] || "";
+        const postcode = properties["addr:postcode"] || "";
+        const startDate = properties["start_date"] || "";
+        const wikipedia = properties["wikipedia"] || "";
+        let wikipediaLink = "";
+        if (wikipedia) {
+          // wikipedia tag format: "en:Barclay–Vesey Building"
+          const parts = wikipedia.split(":");
+          if (parts.length === 2) {
+            wikipediaLink = `https://en.wikipedia.org/wiki/${encodeURIComponent(parts[1])}`;
+          } else {
+            wikipediaLink = `https://en.wikipedia.org/wiki/${encodeURIComponent(wikipedia)}`;
+          }
+        }
+        // Merge city, state, postcode into one line, only if all present
+        let locationLine = "";
+        if (city && state && postcode) {
+          locationLine = [city, state, postcode].join(", ");
+        }
+        // Name as Wikipedia link if available
+        let nameHtml = `<strong>${name}</strong>`;
+        if (wikipediaLink) {
+          nameHtml = `<strong><a href='${wikipediaLink}' target='_blank' style='text-decoration:none;color:#0074d9;'>${name}</a></strong>`;
+        }
+        const infoHtml = `
+          <div>
+            ${nameHtml}<br/>
+            ${locationLine ? locationLine + '<br/>' : ''}
+            ${startDate ? `Built: ${startDate}<br/>` : ""}
+          </div>
+        `;
+        layer.bindPopup(infoHtml).openPopup();
       }
     });
   }
