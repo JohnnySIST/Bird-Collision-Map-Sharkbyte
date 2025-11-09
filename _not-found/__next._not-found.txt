@@ -1,4 +1,4 @@
 1:"$Sreact.fragment"
-2:I[96795,["/_next/static/chunks/92df8d93654b4704.js"],"default"]
-3:I[40033,["/_next/static/chunks/92df8d93654b4704.js"],"default"]
-0:{"buildId":"j6mpbKAL4RSEfD8TQtFkJ","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
+2:I[96795,["/Bird-Collision-Map-Sharkbyte/_next/static/chunks/92df8d93654b4704.js"],"default"]
+3:I[40033,["/Bird-Collision-Map-Sharkbyte/_next/static/chunks/92df8d93654b4704.js"],"default"]
+0:{"buildId":"JjKBs_34Z1jxx9tyNvpeN","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
