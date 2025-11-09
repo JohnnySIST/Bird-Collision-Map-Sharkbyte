@@ -4,11 +4,12 @@ import { useGlobalContext } from '../context/GlobalContext';
 
 export default function BoundMonitor() {
   const map = useMap();
-  const { setBounds, setZoom } = useGlobalContext();
+  const { setBounds, setZoom, setMapCenter } = useGlobalContext();
   useEffect(() => {
     const updateContext = () => {
       setBounds(map.getBounds());
       setZoom(map.getZoom());
+      setMapCenter(map.getCenter());
       console.log("zoom:", map.getZoom());
       console.log("bounds:", map.getBounds());
     };

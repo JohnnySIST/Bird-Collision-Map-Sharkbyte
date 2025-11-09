@@ -81,8 +81,7 @@ export default function SearchCity({ onSearch }: { onSearch?: (lat: number, lon:
       <Button
         type="button"
         variant="contained"
-        color="primary"
-        sx={{ height: 40, fontWeight: 600, fontSize: 16, boxShadow: 2, textTransform: 'none' }}
+        sx={{ height: 40, fontWeight: 600, fontSize: 16, boxShadow: 2, textTransform: 'none', bgcolor: '#ff7800', '&:hover': { bgcolor: '#ff9800' } }}
         onClick={doSearch}
       >
         Search
